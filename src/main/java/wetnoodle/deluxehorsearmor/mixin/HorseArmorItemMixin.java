@@ -29,11 +29,11 @@ public abstract class HorseArmorItemMixin extends Item implements HorseArmorItem
 
     @Inject(at = @At("TAIL"), method = "<init>")
     private void initMixin(int bonus, String name, Settings settings, CallbackInfo ci) {
-        DeluxeHorseArmor.LOGGER.info(name);
         material = getMaterial(name);
-//        if (material == null) {
-//            DeluxeHorseArmor.LOGGER.warn("Horse armor material type not found!");
-//        }
+        if (material == null) {
+            DeluxeHorseArmor.LOGGER.warn("Horse armor material type not found!");
+            return;
+        }
         this.toughness = material.getToughness();
         this.knockbackResistance = material.getKnockbackResistance();
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
@@ -45,7 +45,12 @@ public abstract class HorseArmorItemMixin extends Item implements HorseArmorItem
 
     @ModifyVariable(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;<init>(Lnet/minecraft/item/Item$Settings;)V"), argsOnly = true)
     private static Settings initModifyArg(Settings original, int bonus, String name, Item.Settings settings) {
-        return original.maxDamageIfAbsent(getMaterial(name).getDurability(ArmorItem.Type.CHESTPLATE));
+        ArmorMaterial material = getMaterial(name);
+        if (material == null) {
+            DeluxeHorseArmor.LOGGER.error("Material " + name + " not found!");
+            return original;
+        }
+        return original.maxDamageIfAbsent(material.getDurability(ArmorItem.Type.CHESTPLATE));
     }
 
     @Override
@@ -65,6 +70,11 @@ public abstract class HorseArmorItemMixin extends Item implements HorseArmorItem
 
     @Unique
     private static ArmorMaterial getMaterial(String name) {
-        return ArmorMaterials.valueOf(name);
+        for (ArmorMaterial material : ArmorMaterials.values())
+            if (name.equals(material.getName())) {
+                return material;
+            }
+        DeluxeHorseArmor.LOGGER.warn("Found no material!");
+        return null;
     }
 }

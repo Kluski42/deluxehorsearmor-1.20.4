@@ -3,7 +3,9 @@
   "package": "wetnoodle.deluxehorsearmor.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "HorseArmorItemMixin"
+    "HorseArmorItemMixin",
+    "HorseEntityMixin",
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
