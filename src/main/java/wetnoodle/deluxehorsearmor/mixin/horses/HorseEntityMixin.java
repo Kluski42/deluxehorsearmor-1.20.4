@@ -1,4 +1,4 @@
-package wetnoodle.deluxehorsearmor.mixin;
+package wetnoodle.deluxehorsearmor.mixin.horses;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
