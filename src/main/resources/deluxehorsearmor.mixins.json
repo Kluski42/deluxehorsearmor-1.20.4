@@ -8,7 +8,9 @@
     "LivingEntityMixin",
     "enchantments.EnchantmentHelperMixin",
     "enchantments.EnchantmentMixin",
-    "enchantments.ProtectionEnchantmentMixin"
+    "enchantments.FrostWalkerMixin",
+    "enchantments.ProtectionEnchantmentMixin",
+    "enchantments.ThornsEnchantmentMixin"
   ],
   "injectors": {
     "defaultRequire": 1
