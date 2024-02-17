@@ -5,7 +5,10 @@
   "mixins": [
     "HorseArmorItemMixin",
     "HorseEntityMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "enchantments.EnchantmentHelperMixin",
+    "enchantments.EnchantmentMixin",
+    "enchantments.ProtectionEnchantmentMixin"
   ],
   "injectors": {
     "defaultRequire": 1
